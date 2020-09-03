@@ -1,9 +1,12 @@
 const express = require('express');
-
+const authController = require('./Controllers/auth')
 const app = express();
 
+
+app.use('/auth', authController);
+
 app.get('/', (req, res)=>{
-    return res.json("API Running...")
+    return res.json("Baby Shower API Running...")
 })
 
 app.listen(3001, ()=>{ 
