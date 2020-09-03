@@ -1,8 +1,11 @@
 const express = require('express');
-const authController = require('./Controllers/auth')
+const authController = require('./controllers/auth')
 const db = require('./models')
+const response = require('./middlewares/response')
 
 const app = express();
+
+app.use(response);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -10,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/auth', authController);
 
 app.get('/', (req, res)=>{
-    return res.json("Baby Shower API Running...")
+    return res.json("Baby Shower API Running...");
 })
 
 

@@ -13,7 +13,7 @@ router.post('/sign-up', async (req, res)=>{
     //Verify Register on DB
     const convidado = await Convidado.findOne({where: {accessCode}});
     if (convidado){
-        return res.json('Codigo de Acesso já cadastrado!')
+        return res.jsonBadRequest(null, 'Codigo de Acesso já cadastrado!')
     }
 
     //Insert on DB 
@@ -23,7 +23,7 @@ router.post('/sign-up', async (req, res)=>{
         invitations
     });
 
-    return res.json({ name, accessCode, invitations });
+    return res.jsonOK(result, 'Convidado Criado');
 })
 
 router.get('/admin', (req, res)=>{
