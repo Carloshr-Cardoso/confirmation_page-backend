@@ -7,18 +7,23 @@ router.get('/sign-in', (req, res)=>{
     return res.json("sign In")
 })
 
-router.get('/sign-up', async (req, res)=>{
-    //const {name, accessCode, invitations} = req.body;
-    const name = 'Carlos Cardoso';
-    const accessCode = 'a34785'
-    const invitations = 3;
+router.post('/sign-up', async (req, res)=>{
+    const { name, accessCode, invitations } = req.body;
+    
+    //Verify Register on DB
+    const convidado = await Convidado.findOne({where: {accessCode}});
+    if (convidado){
+        return res.json('Codigo de Acesso já cadastrado!')
+    }
+
+    //Insert on DB 
     const result = await Convidado.create({
         name, 
         accessCode,
         invitations
     });
 
-    return res.json(result);
+    return res.json({ name, accessCode, invitations });
 })
 
 router.get('/admin', (req, res)=>{
