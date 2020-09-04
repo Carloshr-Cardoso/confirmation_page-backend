@@ -3,6 +3,7 @@ const { Convidado } = require('../models');
 const { generateJwt, generateRefreshJwt } = require('../helpers/jwt');
 const { convidadoSignUp, convidadoSignIn } = require('../validators/convidado');
 
+
 const router = express.Router();
 
 router.post('/sign-in', convidadoSignIn, async (req, res)=>{
@@ -11,15 +12,17 @@ router.post('/sign-in', convidadoSignIn, async (req, res)=>{
     //Verify Register on DB
     const convidado = await Convidado.findOne({where: {accessCode}});
     if (!convidado){
-        return res.jsonBadRequest(null, 'Convite Não Encontrado na Base de Dados')
+        //console.log(getMessages('convidado.signin.accessCodeNotFound'))
+        return res.jsonBadRequest(null, 'Código de Acesso Inválido')
     }
+ 
+    const token = generateJwt({id: convidado.id})
+    const refreshToken = generateRefreshJwt({id: convidado.id})
 
 
-
-
-
-    return res.json("sign In")
+    return res.jsonOK(convidado, 'Login Efetuado com Sucesso', { token, refreshToken })
 })
+
 
 router.post('/sign-up', convidadoSignUp, async (req, res)=>{
     const { name, accessCode, invitations } = req.body;
@@ -40,7 +43,7 @@ router.post('/sign-up', convidadoSignUp, async (req, res)=>{
     const token = generateJwt({id: newConvidado.id})
     const refreshToken = generateRefreshJwt({id: newConvidado.id})
 
-    return res.jsonOK(newConvidado, 'Convidado Criado', { token, refreshToken });
+    return res.jsonOK(newConvidado, 'Convidado Criado Com Sucesso', { token, refreshToken });
 })
 
 router.get('/admin', (req, res)=>{

@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const { getValidatorError } = require('../helpers/validator');
 
+
 const rules = {
     name: Joi.string().required(),
     accessCode: Joi.string().pattern(new RegExp('^[a-zA-Z-0-9]{6,10}$')).required(),
@@ -20,8 +21,8 @@ const convidadoSignIn = (req, res, next) =>{
     const options = {abortEarly: false}
     const {error} = schema.validate({ accessCode }, options)
     if (error){
-        messages = getValidatorError(error);
-        return res.jsonBadRequest(null, null, {error: messages})
+        messages = getValidatorError(error, 'convidado.signin');
+        return res.jsonBadRequest(null, null, {error: error})
     }
 
 
