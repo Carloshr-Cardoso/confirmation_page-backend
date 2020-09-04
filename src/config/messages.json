@@ -1,5 +1,5 @@
 {
     "convidado.signup.accessCode.string.pattern.base" : "O Código de Acesso conter números e letras e ter entre 6 e 10 caracteres",
-    "convidado.signup.invitations.number.min" : "O Número de Convidados é Inferior ao Permitido",
-    "convidado.signup.invitations.number.max" : "O Número de Convidados é Superior ao Permitido"
+    "convidado.signup.invitations.number.min" : "Número de Convidados é Inferior ao Permitido",
+    "convidado.signup.invitations.number.max" : "Número de Convidados é Superior ao Permitido"
 }
