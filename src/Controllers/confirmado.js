@@ -4,7 +4,7 @@ const { verifyConvites } =  require('../validators/confirmado');
 
 const router = express.Router();
 
-// Vídeo no Minuto 56:43
+// Vídeo no Minuto 1:21:45
 
 router.get('/', async(req, res)=>{
     const {convidadoId} = req;
