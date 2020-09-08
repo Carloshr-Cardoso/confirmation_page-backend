@@ -3,10 +3,13 @@ const authController = require('./controllers/auth')
 const confirmedController = require('./controllers/confirmado')
 const db = require('./models')
 const response = require('./middlewares/response')
+const checkJwt = require('./middlewares/jwt')
 
 const app = express();
 
+//Middlewares
 app.use(response);
+app.use(checkJwt);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

@@ -7,14 +7,14 @@ const router = express.Router();
 // Vídeo no Minuto 56:43
 
 router.get('/', async(req, res)=>{
-    const convidadoId = 2;//req.id;
+    const {convidadoId} = req;
     const confirmados = await Confirmado.findAll({where: {convidadoId}})
 
     return res.jsonOK(confirmados)
 });
 
 router.get('/:id', async (req, res)=>{
-    const convidadoId = 2;//req.id;
+    const {convidadoId} = req;
     const { id } = req.params;
     const convidado = await Confirmado.findOne({where: { id, convidadoId}});
     if (!convidado){
@@ -25,7 +25,7 @@ router.get('/:id', async (req, res)=>{
 });
 
 router.post('/', verifyConvites, async (req, res)=>{
-    const convidadoId = 3;//req.id;
+    const {convidadoId} = req;
     const { name } = req.body;
 
     const convidadoConfirmado = await Confirmado.create({name, convidadoId})
@@ -35,7 +35,7 @@ router.post('/', verifyConvites, async (req, res)=>{
 });
 
 router.put('/:id', async (req, res)=>{
-    const convidadoId = 2;//req.id;
+    const {convidadoId} = req;
     const { id } = req.params;
     const { name } = req.body;
 
@@ -51,7 +51,7 @@ router.put('/:id', async (req, res)=>{
 });
 
 router.delete('/:id', async (req, res)=>{
-    const convidadoId = 2;//req.id;
+    const {convidadoId} = req;
     const { id } = req.params;
     const convidado = await Confirmado.findOne({where: { id, convidadoId}});
     if (!convidado){
