@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) =>{
         
     })
 
+
+    Convidado.associate = (models) =>{
+        Convidado.hasMany(models.Confirmado, {foreignKey:'convidadoId'})
+    }
+
     Convidado.prototype.toJson = function(){
         const values = { ...this.get() }
         delete values.accessCode;
