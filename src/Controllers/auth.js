@@ -17,7 +17,7 @@ router.post('/sign-in', convidadoSignIn, async (req, res)=>{
     }
  
     const token = generateJwt({id: convidado.id})
-    const refreshToken = generateRefreshJwt({id: convidado.id})
+    const refreshToken = generateRefreshJwt({ id: convidado.id, version:convidado.jwtVersion })
 
 
     return res.jsonOK(convidado, 'Login Efetuado com Sucesso', { token, refreshToken })
@@ -41,7 +41,7 @@ router.post('/sign-up', convidadoSignUp, async (req, res)=>{
     });
 
     const token = generateJwt({id: newConvidado.id})
-    const refreshToken = generateRefreshJwt({id: newConvidado.id})
+    const refreshToken = generateRefreshJwt({ id: newConvidado.id, version: newConvidado.jwtVersion })
 
     return res.jsonOK(newConvidado, 'Convidado Criado Com Sucesso', { token, refreshToken });
 })
