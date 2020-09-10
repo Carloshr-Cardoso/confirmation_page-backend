@@ -1,6 +1,6 @@
 const express = require('express');
 const { Convidado } = require('../models');
-const { generateJwt, generateRefreshJwt } = require('../helpers/jwt');
+const { generateJwt, generateRefreshJwt, verifyRefreshJwt, getTokenFromHeaders } = require('../helpers/jwt');
 const { convidadoSignUp, convidadoSignIn } = require('../validators/convidado');
 
 
@@ -44,6 +44,35 @@ router.post('/sign-up', convidadoSignUp, async (req, res)=>{
     const refreshToken = generateRefreshJwt({ id: newConvidado.id, version: newConvidado.jwtVersion })
 
     return res.jsonOK(newConvidado, 'Convidado Criado Com Sucesso', { token, refreshToken });
+})
+
+router.post('/refresh', async (req, res) =>{
+    const token = getTokenFromHeaders(req.headers)
+
+    if (!token){
+        return res.jsonUnauthorized(null, 'Token Inválido')
+    }
+
+    try{
+        const decoded = verifyRefreshJwt(token);
+        const convidado = await Convidado.findByPk(decoded.id);
+        if(!convidado){
+            return res.jsonUnauthorized(null, 'Token Inválido')
+        }
+        if (decoded.version != convidado.jwtVersion){
+            return res.jsonUnauthorized(null, 'Token Inválido')
+        }
+        const meta = {
+            token: generateJwt({id: convidado.id})
+        };
+
+        return res.jsonOK(null, null, meta);
+
+    }catch(err){
+        return res.jsonUnauthorized(null, 'Token Inválido')
+    }
+
+
 })
 
 router.get('/admin', (req, res)=>{
