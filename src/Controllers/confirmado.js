@@ -12,14 +12,14 @@ router.get('/', async(req, res)=>{
 });
 
 router.get('/:id', async (req, res)=>{
-    const {convidadoId} = req;
+    //const {convidadoId} = req;
     const { id } = req.params;
-    const convidado = await Confirmado.findOne({where: { id, convidadoId}});
-    if (!convidado){
+    const confirmados = await Confirmado.findAll({where: { convidadoId: id}});
+    if (!confirmados){
         return res.jsonNotFound();
     }
 
-    return res.jsonOK(convidado)
+    return res.jsonOK(confirmados)
 });
 
 router.post('/', verifyConvites, async (req, res)=>{
