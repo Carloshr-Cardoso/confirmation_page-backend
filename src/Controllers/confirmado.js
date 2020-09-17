@@ -4,8 +4,6 @@ const { verifyConvites } =  require('../validators/confirmado');
 
 const router = express.Router();
 
-// Vídeo no Minuto 1:21:45
-
 router.get('/', async(req, res)=>{
     const {convidadoId} = req;
     const confirmados = await Confirmado.findAll({where: {convidadoId}})
@@ -30,8 +28,8 @@ router.post('/', verifyConvites, async (req, res)=>{
 
     const convidadoConfirmado = await Confirmado.create({name, convidadoId})
     
-    // return res.jsonOK(convidadoConfirmado,'Confirmados');
-    return res.jsonOK(name,'Confirmados');
+    return res.jsonOK(convidadoConfirmado,'Confirmados');
+    //return res.jsonOK(name,'Confirmados');
 });
 
 router.put('/:id', async (req, res)=>{
