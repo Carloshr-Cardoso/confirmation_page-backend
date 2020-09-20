@@ -14,7 +14,7 @@ router.get('/', async(req, res)=>{
 router.get('/:id', async (req, res)=>{
     //const {convidadoId} = req;
     const { id } = req.params;
-    const confirmados = await Confirmado.findAll({where: { convidadoId: id}});
+    const confirmados = await Confirmado.findOne({where: { id: id}});
     if (!confirmados){
         return res.jsonNotFound();
     }
