@@ -1,7 +1,8 @@
 const { Confirmado, Convidado } = require('../models');
 
 const verifyConvites = async (req, res, next) =>{
-    const convidadoId = 3;
+    const convidadoId = req.convidadoId;
+    console.log(convidadoId);
     const { name } = req.body;
     
     const convidado = await Convidado.findOne({where: {id:convidadoId}})
