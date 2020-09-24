@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors')
-const authController = require('./Controllers/auth')
+const authController = require('./controllers/auth')
 const confirmedController = require('./controllers/confirmado')
 const db = require('./models')
 const response = require('./middlewares/response')
