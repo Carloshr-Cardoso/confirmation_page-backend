@@ -46,6 +46,22 @@ router.post('/sign-up', convidadoSignUp, async (req, res)=>{
     return res.jsonOK(newConvidado, 'Convidado Criado Com Sucesso', { token, refreshToken });
 })
 
+router.put('/edit', async (req, res)=>{
+    const {convidadoId} = req;
+    const { confirmado } = req.body;
+
+    const convidado = await Convidado.findOne({where: { id: convidadoId}});
+    if (!convidado){
+        return res.jsonNotFound();
+    }
+    convidado.confirmado = confirmado;
+
+    await convidado.save();
+    
+    return res.jsonOK(convidado,'Convidado Alterado');
+});
+
+
 router.post('/refresh', async (req, res) =>{
     const token = getTokenFromHeaders(req.headers)
 
