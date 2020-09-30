@@ -51,6 +51,8 @@ router.put('/edit', async (req, res)=>{
     const { confirmado } = req.body;
 
     const convidado = await Convidado.findOne({where: { id: convidadoId}});
+    console.log("*** auth.edit.confirmado", confirmado);
+    console.log("*** auth.edit.convidado", convidado);
     if (!convidado){
         return res.jsonNotFound();
     }
