@@ -56,6 +56,7 @@ router.delete('/:id', async (req, res)=>{
         return res.jsonNotFound();
     }
     await convidado.destroy();
+    return res.jsonOK(true, 'Convidado Apagado');
 })
 
 module.exports = router;
