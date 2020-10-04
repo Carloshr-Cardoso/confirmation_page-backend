@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) =>{
             type : DataTypes.INTEGER,
             allowNull : false,
         },
+        
+        confirmado:{
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
 
         jwtVersion:{
             type: DataTypes.INTEGER,
@@ -21,12 +27,11 @@ module.exports = (sequelize, DataTypes) =>{
             defaultValue: 0,
         },
         
-        confirmado:{
-            type: DataTypes.BOOLEAN,
+        role:{
+            type: DataTypes.INTEGER,
             allowNull: false,
-            defaultValue: false,
+            defaultValue: 1,
         }
-
     })
 
 

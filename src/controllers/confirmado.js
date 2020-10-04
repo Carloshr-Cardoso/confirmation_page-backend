@@ -1,5 +1,5 @@
 const express = require('express')
-const { Confirmado } = require('../models');
+const { Confirmado, Convidado } = require('../models');
 const { verifyConvites } =  require('../validators/confirmado');
 
 const router = express.Router();
@@ -10,6 +10,14 @@ router.get('/', async(req, res)=>{
 
     return res.jsonOK(confirmados)
 });
+
+router.get('/admin/convidados', async(req, res)=>{
+    const {convidadoId} = req;
+    const convidados = await Convidado.findAll({where: {role: 1}});
+
+    return res.jsonOK(convidados, "Requisição Envidada com Sucesso");
+});
+
 
 router.get('/:id', async (req, res)=>{
     //const {convidadoId} = req;
